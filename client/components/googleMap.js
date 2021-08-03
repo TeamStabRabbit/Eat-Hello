@@ -1,26 +1,34 @@
-import React, { Component, useEffect } from 'react';
+import React, { Component, useEffect, useState } from 'react';
 import { Loader } from '@googlemaps/js-api-loader';
 import { render } from 'react-dom';
 const { FontAwesomeIcon } = require('@fortawesome/react-fontawesome');
 const { faUtensils } = require('@fortawesome/free-solid-svg-icons');
 import forkSvg from '../Images/utensils-solid.svg';
-
+// let geocoder = require('geocoder');
+import axios from 'axios';
+import GoogleService from '../service/googleService';
 /* Options for how the map should initially render. */
 
-const GoogleMap = ({ menu, zipcode }) => {
-  console.log('this is menu', menu);
-  fetch(
-    'https://maps.googleapis.com/maps/api/place/textsearch/json?query=restaurants+toronto+canada&key=AIzaSyCaSo1pxwCY44jihxAMHhJjVJ3mHbFLsPw'
-  )
-    //fetch to endpoint
+const GoogleMap = ({ menu, zipcode, lat, lng }) => {
+  const [restaurant, setRestaurant] = useState('');
+  const [restaurantLat, setRestaurantLat] = useState(40.7285229);
+  const [restaurantLng, setRestaurantLng] = useState(-73.9880155);
+  const [address, setAddress] = useState('');
 
-    // method: 'GET',
-    // headers:{
-    //   'Content-Type': 'application/json; charset=UTF-8'
-    // },
-    // body: JSON.stringify('https://maps.googleapis.com/maps/api/place/textsearch/json?query=chinese&key=AIzaSyCaSo1pxwCY44jihxAMHhJjVJ3mHbFLsPw')
-    // .then(response => response.json())
-    .then((data) => console.log(data));
+  useEffect(async () => {
+    const result = await GoogleService.postRestaurant(
+      'http://localhost:3000/restaurant',
+      { menu: menu, lat: lat, lng: lng }
+    );
+    console.log('this is results', result);
+    // let item = inputContainer[Math.floor(Math.random()*inputContainer.length)];
+    let chosenRestaurant = result[Math.floor(Math.random() * result.length)];
+    // console.log('this is chosen restaurant', chosenRestaurant);
+    setRestaurantLat(chosenRestaurant.geometry.location.lat);
+    setRestaurantLng(chosenRestaurant.geometry.location.lng);
+    setRestaurant(chosenRestaurant.name);
+    setAddress(chosenRestaurant.formatted_address);
+  }, [lat]);
 
   const loader = new Loader({
     apiKey: 'AIzaSyCaSo1pxwCY44jihxAMHhJjVJ3mHbFLsPw',
@@ -29,13 +37,14 @@ const GoogleMap = ({ menu, zipcode }) => {
 
   const mapOptions = {
     center: {
-      lat: 40.7128,
-      lng: -74.006,
+      lat: restaurantLat,
+      lng: restaurantLng,
     },
-    zoom: 11,
+    zoom: 16,
   };
 
   // // Callback
+
   loader
     .load()
     .then((google) => {
@@ -43,24 +52,38 @@ const GoogleMap = ({ menu, zipcode }) => {
         document.getElementById('map'),
         mapOptions
       );
-      console.log('we made it here');
-
+      const infowindow = new google.maps.InfoWindow({
+        content: `<strong>Come eat here!! @ </strong> ${restaurant},   <strong> Address: </strong> ${address} `,
+      });
       let marker = new google.maps.Marker({
+        //myLatlng,
         position: {
-          lat: 40.7128,
-          lng: -74.006,
+          lat: restaurantLat,
+          lng: restaurantLng,
         },
-        map: Gmap,
+        Gmap,
         icon: forkSvg,
       });
+      marker.addListener('click', () => {
+        infowindow.open({
+          anchor: marker,
+          map,
+          shouldFocus: false,
+        });
+      });
+      marker.setMap(Gmap);
+      console.log(
+        'this is marker location',
+        marker.position.lat,
+        marker.position.lng
+      );
     })
     .catch((e) => {
       console.log('THIS DONT WORKKK', e);
     });
-  console.log('pre loaderCallback');
 
   return (
-    <div calssName='google_map'>
+    <div className='google_map'>
       <div id='map'>hi</div>
     </div>
   );

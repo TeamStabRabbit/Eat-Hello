@@ -6,25 +6,26 @@ const dotenv = require('dotenv').config();
 //const mongoose = require('mongoose');
 //const userController = require('./controllers/userController');
 //const cookieParser = require('cookie-parser');
+<<<<<<< HEAD
 const googleUrl = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=restaurants+toronto+canada&key=${process.env.GOOGLE_API}`;
+=======
+>>>>>>> dev
 const cuisineRouter = require('./routes/cuisine');
+const mapRouter = require('./routes/map');
 const mapController = require('./controllers/mapController');
+const restaurantRouter = require('./routes/restaurant');
 
-// activate the cookieParser 
+const cors = require('cors');
+app.use(cors());
+// activate the cookieParser
 //app.use(cookieParser());
 app.use(express.json());
 
-app.get('/annie', mapController.testing, (req, res) => {
-  //console.log('req.locals.data: ', req.locals.data);
-  //console.log('payload is: ', res.locals.data.json());
-  return res.json({
-    status: true,
-    payload: req.locals.data
-  });
-});
+app.use('/map', mapRouter);
+app.use('/restaurant', restaurantRouter);
 
-// a start point for the routes
-//app.use('/api', cuisineRouter);
+// a start point for the route
+app.use('/api', cuisineRouter);
 
 if (process.env.NODE_ENV === 'production') {
   app.use('/build', express.static(path.join(__dirname, '../build')));
@@ -35,19 +36,17 @@ if (process.env.NODE_ENV === 'production') {
 // error handlers
 //app.use('*',(req, res) => res.status(404).sendFile(path.join(__dirname, '/client/404.html')));
 
-// global error handler 
+// global error handler
 app.use(function (err, req, res, next) {
   const defaultErr = {
     log: 'Express error handler caught unknown middleware error',
     status: 400,
-    message: { err: 'An error occurred' }, 
+    message: { err: 'An error occurred' },
   };
   const errorObj = Object.assign(defaultErr, err);
   // console.log(errorObj.log);
   return res.status(errorObj.status).json(errorObj.message);
 });
-
-
 
 app.listen(PORT, () => {
   console.log(`Server listening on port: ${PORT}`);

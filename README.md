@@ -14,3 +14,14 @@ Allow users to save their recent history of selected foods and restaurants.
 
 Test.
 
+Save history
+
+Remove items from menu items
+
+Saving food choice list 
+
+Display history
+
+Send reviews to google API
+
+Cookies

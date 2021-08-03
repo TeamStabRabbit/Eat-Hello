@@ -2,10 +2,11 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const PORT = 3000;
+const dotenv = require('dotenv').config();
 //const mongoose = require('mongoose');
 //const userController = require('./controllers/userController');
 //const cookieParser = require('cookie-parser');
-const googleUrl = 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=restaurants+toronto+canada&key=AIzaSyCaSo1pxwCY44jihxAMHhJjVJ3mHbFLsPw';
+const googleUrl = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=restaurants+toronto+canada&key=${process.env.GOOGLE_API}`;
 const cuisineRouter = require('./routes/cuisine');
 const mapController = require('./controllers/mapController');
 

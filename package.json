@@ -6,7 +6,7 @@
   "scripts": {
     "start": "NODE_ENV=production node server/server.js",
     "build": "NODE_ENV=production webpack",
-    "dev": "NODE_ENV=development node server/server.js & NODE_ENV=development webpack serve --open"
+    "dev": "NODE_ENV=development nodemon server/server.js & NODE_ENV=development webpack serve --open"
   },
   "nodemonConfig": {
     "ignore": [
@@ -23,6 +23,7 @@
     "babelify": "^10.0.0",
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.5",
+    "dotenv": "^10.0.0",
     "eslint-config-airbnb": "^18.2.1",
     "express": "^4.12.3",
     "mongoose": "^5.13.5",

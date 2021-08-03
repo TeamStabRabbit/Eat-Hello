@@ -6,36 +6,12 @@ const bcrypt = require('bcryptjs');
 
 const MONGO_URI = process.env.mongo_URL;
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-// mongoose.connect(MONGO_URI, {
-//   // options for the connect method to parse the URI
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true,
-//   // sets the name of the DB that our collections are part of
-//   dbName: 'eat-hello',
-// })
-//   .then(() => {
-//     console.log('Connected to Mongo DB.');
-//   })
-//   .catch((err) => {
-//     console.log(err);
-//   });
-=======
->>>>>>> dev
 mongoose.connect(MONGO_URI, {
   // options for the connect method to parse the URI
   useNewUrlParser: true,
   useUnifiedTopology: true,
-<<<<<<< HEAD
-  useCreateIndex: true,
   // sets the name of the DB that our collections are part of
   dbName: 'eat',
-=======
-  // sets the name of the DB that our collections are part of
-  dbName: 'eat-hello',
->>>>>>> dev
 })
   .then(() => {
     console.log('Connected to Mongo DB.');
@@ -43,10 +19,6 @@ mongoose.connect(MONGO_URI, {
   .catch((err) => {
     console.log(err);
   });
-<<<<<<< HEAD
-=======
->>>>>>> 2e55fdba76beab90d8eb4a80ae22de54be4aaa74
->>>>>>> dev
 
 // eslint-disable-next-line prefer-destructuring
 const Schema = mongoose.Schema;

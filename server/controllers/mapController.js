@@ -51,10 +51,10 @@ mapController.sendRestaurant = async (req, res, next) => {
     // const lng = await res.body.lng;
 
     const { menu, lat, lng } = req.body;
-  //   // console.log(`menu:`, menu, `lat:`, lat, `lng:`, lng);
-  //  let restaurantUrl = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${menu}}&type=restaurant&location=${lat},${lng}&radius=2000&key=${placeAPI}`;
-  // const restaurantUrl  = await `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&radius=2000&type=restaurant&keyword=${menu}&key=${placeAPI}`;
-   const restaurantUrl  =  `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=41.6507919,-73.784939&radius=2000&type=restaurant&keyword=pizza&key=${placeAPI}`;
+    //   // console.log(`menu:`, menu, `lat:`, lat, `lng:`, lng);
+    //  let restaurantUrl = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${menu}}&type=restaurant&location=${lat},${lng}&radius=2000&key=${placeAPI}`;
+    // const restaurantUrl  = await `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&radius=2000&type=restaurant&keyword=${menu}&key=${placeAPI}`;
+    const restaurantUrl  =  `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=41.6507919,-73.784939&radius=2000&type=restaurant&keyword=pizza&key=${placeAPI}`;
     const response = await axios.get(restaurantUrl);
     // console.log("this is alllllllllll", response.data);
     //picture url path response.data.results[0].photos[0].photo_reference
@@ -74,10 +74,10 @@ mapController.sendRestaurant = async (req, res, next) => {
     console.log('map controller err in Send Restaurant', err);
     return next();
   }};
-  //  fetch(restaurantUrl)
-  //  .then(response => response.json())
-  // .then(response =>{ res.locals.name = response.results[0].name });
-  //  };
+//  fetch(restaurantUrl)
+//  .then(response => response.json())
+// .then(response =>{ res.locals.name = response.results[0].name });
+//  };
 
 /*
 

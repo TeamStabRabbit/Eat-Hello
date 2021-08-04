@@ -43,7 +43,7 @@ const ZipCode = ({ menu, setZipcode, zipcode }) => {
     <div className="zipcode_container">
       <p>
         {' '}
-        Let's eat <b>{menu}</b>
+        Let&apos;s eat <b>{menu}</b>
       </p>
       <p>Let me find you a restaurant.</p>
       <p>What is your Zipcode?</p>

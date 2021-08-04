@@ -6,10 +6,7 @@ const dotenv = require('dotenv').config();
 //const mongoose = require('mongoose');
 //const userController = require('./controllers/userController');
 //const cookieParser = require('cookie-parser');
-<<<<<<< HEAD
 const googleUrl = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=restaurants+toronto+canada&key=${process.env.GOOGLE_API}`;
-=======
->>>>>>> dev
 const cuisineRouter = require('./routes/cuisine');
 const mapRouter = require('./routes/map');
 const mapController = require('./controllers/mapController');

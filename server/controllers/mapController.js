@@ -20,21 +20,11 @@ const mapController = {};
 
 mapController.getGeoCode = async (res, req, next) => {
   try {
-<<<<<<< HEAD
     const response = await axios.get(`https://maps.googleapis.com/maps/api/place/textsearch/json?query=restaurants+toronto+canada&key=${process.env.GOOGLE_API}`);
     //console.log(response.data.results);
     res.locals = { data : response.data.results };
     //console.log('res.locals.data: ', res.locals.data);
     // console.log('this is working. end of await');
-=======
-    const zipCode = res.body.zipCode;
-    const zipUrl = `https://maps.googleapis.com/maps/api/geocode/json?components=postal_code:${zipCode}&key=AIzaSyCaSo1pxwCY44jihxAMHhJjVJ3mHbFLsPw `;
-    const response = await axios.get(zipUrl);
-    res.locals = {
-      lat: response.data.results[0].geometry.location.lat,
-      lng: response.data.results[0].geometry.location.lng,
-    };
->>>>>>> dev
     return next();
   } catch (err) {
     console.log('mapController.geoCode error: ', err);

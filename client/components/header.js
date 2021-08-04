@@ -26,7 +26,7 @@ const Header = ({
   const [history, setHistory] = useState(false);
   function togglePopUpHandler(destination) {
     //toggle false and 'login'
-    console.log('popup ', destination);
+    // console.log('popup ', destination);
     popupSet(() => {
       if (popupState === destination) return 0;
       return destination;

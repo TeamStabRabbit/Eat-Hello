@@ -12,11 +12,22 @@ const MainContainer = () => {
   // const [username, setusername] = useState('');
   const [stateCredObj, setCredObj ] = useState({username:'',password:'',});
   const [displayLoginForm, toggleDisplayLoginForm] = useState(false);
-  
+  const [displaySignupForm, setDisplaySignupForm] = useState(false);
+
+  const toggleSignupForm = ()=>{
+    setDisplaySignupForm((prev)=>!prev);
+  };
 
   //sent menu url to the server
   const repeatUserNameWarning = async()=>{
     const element = document.getElementById('username-input');
+
+    element.classList.add('wrong-input');
+    setTimeout(()=>element.classList.remove('wrong-input'), 1100);
+  };
+
+  const repeatPasswordWarning = async()=>{
+    const element = document.getElementById('pw-input');
 
     element.classList.add('wrong-input');
     setTimeout(()=>element.classList.remove('wrong-input'), 1100);
@@ -39,14 +50,24 @@ const MainContainer = () => {
           //well have to change the popup display state
         } else repeatUserNameWarning();
       })
-      .catch(()=>repeatUserNameWarning())
-    ;
-    
+      .catch(()=>repeatUserNameWarning());
+  }
 
-    
-    //else we will change some piece of state to confrim login 
-
-  };
+    const submitLogIn = () => {
+      let loginSuccess;
+      const {username, password} = stateCredObj;
+      axios.post('/api/login', {
+        username: username,
+        password: password,
+      })
+      .then(data => {
+        loginSuccess = data.data.payload.passwordsMatch;
+        if (loginSuccess === true) {
+        setLoggedIn(()=> true);
+      } else repeatPasswordWarning();
+      })
+      .catch(()=>repeatPasswordWarning());
+    };
 
   const credPasswordUpdate = (e)=>{
     const newPassword = e.target.value;
@@ -84,11 +105,13 @@ const MainContainer = () => {
         displayLoginForm={displayLoginForm}
         loginDisplayToggler={loginDisplayToggler}
         menu={menu}
-        username={username}
         credPasswordUpdate={credPasswordUpdate}
         credUsernameUpdate={credUsernameUpdate}
         resetCredentials={resetCredentials}
         submitSignUp={submitSignUp}
+        toggleSignupForm={toggleSignupForm}
+        displaySignupForm={displaySignupForm}
+        submitLogIn={submitLogIn}
       />
       <div className='main'>
         <FoodGenerator menu={menu} />

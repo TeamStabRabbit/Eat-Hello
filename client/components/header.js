@@ -25,6 +25,9 @@ const Header = ({
   credUsernameUpdate,
   resetCredentials,
   submitSignUp,
+  toggleSignupForm,
+  displaySignupForm,
+  submitLogIn
 }) => {
   const [popupState, popupSet] = useState(0);
   const [history, setHistory] = useState(false);
@@ -55,7 +58,9 @@ const Header = ({
         credUsernameUpdate={credUsernameUpdate}
         resetCredentials={resetCredentials}
         submitSignUp={submitSignUp}
-
+        toggleSignupForm={toggleSignupForm}
+        displaySignupForm={displaySignupForm}
+        submitLogIn={submitLogIn}
       />
     ) : null;
   }
@@ -105,7 +110,13 @@ const Header = ({
 
             <div
               className='signIn-Button'
-              onClick={() => togglePopUpHandler('signIn')}
+              onClick={() => {
+                togglePopUpHandler('signIn');
+                //turn off the display, bring you back to buttons
+                if(displayLoginForm) loginDisplayToggler();
+                if(displaySignupForm) toggleSignupForm();
+              }
+            }
             >
               <FontAwesomeIcon icon={faIdBadge} size='2x' />
             </div>

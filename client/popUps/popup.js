@@ -10,8 +10,30 @@ const Popup = ({
   credUsernameUpdate,
   credPasswordUpdate,
   resetCredentials,
-  submitSignUp
+  submitSignUp,
+  toggleSignupForm,
+  displaySignupForm,
+  submitLogIn
 }) => {
+  const signUpLogInButton = ()=>{
+    if(displaySignupForm){
+      return(
+        <button className="submit" onClick={submitSignUp}>
+          Sign up
+        </button>
+      );
+    }
+
+    if(displayLoginForm){
+      return(
+        <button className="submit" onClick={submitLogIn}>
+          Sign In
+        </button>
+      );
+    }
+    return null;
+  };
+    
   const logInContent = () => {
     //is user logged in
     if (loggedIn) {
@@ -23,7 +45,7 @@ const Popup = ({
       );
     } //else not logged in
 
-    if (displayLoginForm) {
+    if (displayLoginForm || displaySignupForm) {
       return (
         <Fragment>
           <h2>Credentials</h2>
@@ -46,14 +68,13 @@ const Popup = ({
               placeholder="Password"
               onChange={credPasswordUpdate}
             />
-            {/* <span className="input__label">Password</span>
-            </label> */}
+            
+
             <div className="button-group">
-              <button className="submit" onClick={submitSignUp}>
-                Signup
-              </button>
-
-
+              
+              {signUpLogInButton()/**content for sign up or login
+              using same form but different button */}
+              
               <button 
                 type="reset" 
                 className="submit"
@@ -68,10 +89,10 @@ const Popup = ({
 
     return (
       <div className="logInButtonContainer">
-        <button className="signUpButton" onClick={() => loginDisplayToggler()}>
+        <button className="signUpButton" onClick={() => toggleSignupForm()}>
           Sign up
         </button>
-        <button className="logInButton">Log In</button>
+        <button className="logInButton" onClick={() => loginDisplayToggler()}>Log In</button>
       </div>
     );
   };

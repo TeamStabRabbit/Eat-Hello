@@ -116,7 +116,7 @@ const Header = ({
                 if(displayLoginForm) loginDisplayToggler();
                 if(displaySignupForm) toggleSignupForm();
               }
-            }
+              }
             >
               <FontAwesomeIcon icon={faIdBadge} size='2x' />
             </div>

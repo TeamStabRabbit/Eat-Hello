@@ -51,23 +51,23 @@ const MainContainer = () => {
         } else repeatUserNameWarning();
       })
       .catch(()=>repeatUserNameWarning());
-  }
+  };
 
-    const submitLogIn = () => {
-      let loginSuccess;
-      const {username, password} = stateCredObj;
-      axios.post('/api/login', {
-        username: username,
-        password: password,
-      })
+  const submitLogIn = () => {
+    let loginSuccess;
+    const {username, password} = stateCredObj;
+    axios.post('/api/login', {
+      username: username,
+      password: password,
+    })
       .then(data => {
         loginSuccess = data.data.payload.passwordsMatch;
         if (loginSuccess === true) {
-        setLoggedIn(()=> true);
-      } else repeatPasswordWarning();
+          setLoggedIn(()=> true);
+        } else repeatPasswordWarning();
       })
       .catch(()=>repeatPasswordWarning());
-    };
+  };
 
   const credPasswordUpdate = (e)=>{
     const newPassword = e.target.value;

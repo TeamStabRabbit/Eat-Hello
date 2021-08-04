@@ -74,11 +74,11 @@ const Header = ({
           </div>
 
           <div className='headName'>
-            <h2>Annie App 2.0</h2>
+            <h2>Annie App 4.20</h2>
           </div>
 
           <div className='headIcons-Left'>
-            <FontAwesomeIcon icon={faUtensils} size='2x' />
+            {/* <FontAwesomeIcon icon={faUtensils} size='2x' /> */}
             <FontAwesomeIcon icon={faPizzaSlice} size='2x' />
             <FontAwesomeIcon icon={faHamburger} size='2x' />
             <FontAwesomeIcon icon={faDrumstickBite} size='2x' />

@@ -39,7 +39,7 @@ const Popup = ({
     if (loggedIn) {
       return (
         <Fragment>
-          <h2>Welcome Back</h2>
+          <h2>Welcome!</h2>
           <img src='https://media1.tenor.com/images/7c5b845782fc709ae23b0cb5e4941990/tenor.gif?itemid=5430037' />
         </Fragment>
       );
@@ -100,7 +100,7 @@ const Popup = ({
   const catContent = () => {
     return (
       <Fragment>
-        <img src={goblinShark} alt="goblin-shark" />
+        <img src='http://digitalpimponline.com/store/149-large_default/i-m-with-tiger-shirt.jpg' alt="mascot" />
       </Fragment>
     );
   };
@@ -108,11 +108,10 @@ const Popup = ({
   const authorContent = () => {
     return (
       <ul className="authors">
-        <li>Adda Kridler</li>
-        <li>Annie Pan</li>
-        <li>Emeric David</li>
-        <li>Hazel Na</li>
-        <li>Matilda Wang</li>
+        <li>Hasan H. O.</li>
+        <li>Damien E.</li>
+        <li>Emeric D.</li>
+        <li>Oleksii H.</li>
       </ul>
     );
   };

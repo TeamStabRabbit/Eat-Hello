@@ -1,16 +1,17 @@
 const mongoose = require('mongoose');
-
+const dotenv = require('dotenv').config();
 const SALT_WORK_FACTOR = 10;
 const bcrypt = require('bcryptjs');
 
-const MONGO_URI = 'mongodb+srv://<newpassword>@cluster0.njyj1.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+const MONGO_URI = process.env.mongo_URL;
 
 mongoose.connect(MONGO_URI, {
   // options for the connect method to parse the URI
+  useCreateIndex: true,
   useNewUrlParser: true,
   useUnifiedTopology: true,
   // sets the name of the DB that our collections are part of
-  dbName: 'eat-hello',
+  dbName: 'eat',
 })
   .then(() => {
     console.log('Connected to Mongo DB.');

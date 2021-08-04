@@ -31,7 +31,7 @@ const GoogleMap = ({ menu, zipcode, lat, lng }) => {
   }, [lat]);
 
   const loader = new Loader({
-    apiKey: 'AIzaSyCaSo1pxwCY44jihxAMHhJjVJ3mHbFLsPw',
+    apiKey: 'AIzaSyAWZT1oyUbY7x-g5-qo59d97tggGD2n54w',
     libraries: ['places'],
   });
 

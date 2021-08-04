@@ -35,7 +35,7 @@ router.get('/foodHistory', userController.getFoodHistory, (req, res) => {
 });
 
 router.post('/foodHistory', userController.pushFoodHistory, userController.getFoodHistory, (req, res) => {
-   return res.status(200).json(res.locals.history);
+  return res.status(200).json(res.locals.history);
 });
 
 

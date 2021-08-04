@@ -3,23 +3,8 @@ const dotenv = require('dotenv').config();
 const SALT_WORK_FACTOR = 10;
 const bcrypt = require('bcryptjs');
 
-const MONGO_URI = process.env.mongo_URL;
+const MONGO_URI = process.env.MONGO_URL;
 
-<<<<<<< HEAD
-// mongoose.connect(MONGO_URI, {
-//   // options for the connect method to parse the URI
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true,
-//   // sets the name of the DB that our collections are part of
-//   dbName: 'eat-hello',
-// })
-//   .then(() => {
-//     console.log('Connected to Mongo DB.');
-//   })
-//   .catch((err) => {
-//     console.log(err);
-//   });
-=======
 mongoose.connect(MONGO_URI, {
   // options for the connect method to parse the URI
   useCreateIndex: true,
@@ -35,7 +20,6 @@ mongoose.connect(MONGO_URI, {
   .catch((err) => {
     console.log(err);
   });
->>>>>>> 2e55fdba76beab90d8eb4a80ae22de54be4aaa74
 
 // eslint-disable-next-line prefer-destructuring
 const Schema = mongoose.Schema;

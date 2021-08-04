@@ -17,7 +17,9 @@ userController.addDataBaseEntry = async (req, res, next) => {
   await User.create({ username, password }, (err, user) => {
     //if err do something
     if(err){
-      res.render('/', {error: err});
+      console.log('error in AddDataBase Entry', err);
+      return next(err);
+      // res.render('/', {error: err});
     }
     else {
       //console.log('user: ', user);
@@ -72,18 +74,16 @@ userController.getFoodHistory = async (req,res,next) =>{
 // };
 
 userController.pushFoodHistory = async (req, res, next) => {
-   const {username, foodItem} = req.body;
-   const ressoltio = await User.update({username}, {$addToSet: {history: foodItem}}, (err, result)=>{
-     if (err){
+  const {username, foodItem} = req.body;
+  const ressoltio = await User.update({username}, {$addToSet: {history: foodItem}}, (err, result)=>{
+    if (err){
       console.log('err: ', err);
       return next(err); 
-     }
-  else{
+    }
+    else{
       return next();
     }
-    
-   });
-
+  });
 };
 
 

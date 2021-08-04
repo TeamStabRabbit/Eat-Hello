@@ -7,6 +7,10 @@ const Popup = ({
   loggedIn,
   displayLoginForm,
   loginDisplayToggler,
+  credUsernameUpdate,
+  credPasswordUpdate,
+  resetCredentials,
+  submitSignUp
 }) => {
   const logInContent = () => {
     //is user logged in
@@ -14,6 +18,7 @@ const Popup = ({
       return (
         <Fragment>
           <h2>Welcome Back</h2>
+          <img src='https://media1.tenor.com/images/7c5b845782fc709ae23b0cb5e4941990/tenor.gif?itemid=5430037' />
         </Fragment>
       );
     } //else not logged in
@@ -25,23 +30,34 @@ const Popup = ({
           <div className="credContainer">
             {/* <label className="input"> */}
             <input
+              id="username-input"
               className="input__field"
               type="text"
               placeholder="Username"
+              onChange={credUsernameUpdate}
             />
             {/* <span className="input__label">User Name</span>
             </label>
             <label className="input"> */}
             <input
+              id = "pw-input"
               className="input__field"
               type="password"
               placeholder="Password"
+              onChange={credPasswordUpdate}
             />
             {/* <span className="input__label">Password</span>
             </label> */}
             <div className="button-group">
-              <button className="submit">Send</button>
-              <button type="reset" className="submit">
+              <button className="submit" onClick={submitSignUp}>
+                Signup
+              </button>
+
+
+              <button 
+                type="reset" 
+                className="submit"
+                onClick={resetCredentials}>
                 Reset
               </button>
             </div>

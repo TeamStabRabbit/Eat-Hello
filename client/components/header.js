@@ -21,6 +21,10 @@ const Header = ({
   menu,
   username,
   loginDisplayToggler,
+  credPasswordUpdate,
+  credUsernameUpdate,
+  resetCredentials,
+  submitSignUp,
 }) => {
   const [popupState, popupSet] = useState(0);
   const [history, setHistory] = useState(false);
@@ -47,6 +51,11 @@ const Header = ({
         loggedIn={loggedIn}
         displayLoginForm={displayLoginForm}
         loginDisplayToggler={loginDisplayToggler}
+        credPasswordUpdate={credPasswordUpdate}
+        credUsernameUpdate={credUsernameUpdate}
+        resetCredentials={resetCredentials}
+        submitSignUp={submitSignUp}
+
       />
     ) : null;
   }

@@ -21,7 +21,7 @@ router.post('/login', userController.readParams, userController.getUser, userCon
 /**
  * signup
  */
-router.post('/signup', userController.readParams, userController.addDataBaseEntry, userController.updatePizzaHistory, (req, res) => {
+router.post('/signup', userController.readParams, userController.addDataBaseEntry, (req, res) => {
   res.status(200).send();
 });
 
@@ -32,6 +32,10 @@ router.get('/foodHistory', userController.getFoodHistory, (req, res) => {
       history: res.locals.history
     }
   });
+});
+
+router.post('/foodHistory', userController.pushFoodHistory, userController.getFoodHistory, (req, res) => {
+   return res.status(200).json(res.locals.history);
 });
 
 

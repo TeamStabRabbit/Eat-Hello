@@ -26,6 +26,9 @@ userController.addDataBaseEntry = async (req, res, next) => {
       return next();
     }
   });
+
+
+
 };
 /** ssid? */
 
@@ -50,24 +53,39 @@ userController.getFoodHistory = async (req,res,next) =>{
       res.redirect('/api/signup');  
     }
   });
-  console.log('result', result);
   res.locals.history = result.history;
   return next();
 };
 
-userController.updatePizzaHistory = async (req, res, next) => {
-  const pizza = 'Pizza';
-  const { username } = res.locals;
-  await User.findOneAndUpdate({ username }, { $push: { history : pizza }}, (err, data) => {
-    if (err) {
+// userController.updatePizzaHistory = async (req, res, next) => {
+//   const pizza = 'Pizza';
+//   const { username } = res.locals;
+//   await User.findOneAndUpdate({ username }, { $push: { history : pizza }}, (err, data) => {
+//     if (err) {
+//       console.log('err: ', err);
+//       return next(err);
+//     }
+//     else {
+//       return next();
+//     }
+//   });
+// };
+
+userController.pushFoodHistory = async (req, res, next) => {
+   const {username, foodItem} = req.body;
+   const ressoltio = await User.update({username}, {$addToSet: {history: foodItem}}, (err, result)=>{
+     if (err){
       console.log('err: ', err);
-      return next(err);
-    }
-    else {
+      return next(err); 
+     }
+  else{
       return next();
     }
-  });
+    
+   });
+
 };
+
 
 userController.passwordCompare = async (req,res,next) =>{
   //res.locals.password = req.query.password

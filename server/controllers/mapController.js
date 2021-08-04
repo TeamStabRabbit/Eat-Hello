@@ -1,6 +1,7 @@
 const axios = require('axios');
 const dotenv = require('dotenv').config();
 
+
 const mapController = {};
 
 // mapController.testing = async (res, req, next) => {
@@ -26,6 +27,7 @@ mapController.getGeoCode = async (res, req, next) => {
     const zipCode = res.body.zipCode;
     const zipUrl = `https://maps.googleapis.com/maps/api/geocode/json?components=postal_code:${zipCode}&key=${geoAPI}`;
     const response = await axios.get(zipUrl);
+    console.log(response.data.results[0].geometry);
     res.locals = {
       lat: response.data.results[0].geometry.location.lat,
       lng: response.data.results[0].geometry.location.lng,

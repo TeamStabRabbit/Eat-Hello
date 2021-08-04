@@ -7,41 +7,78 @@ const Popup = ({
   loggedIn,
   displayLoginForm,
   loginDisplayToggler,
+  credUsernameUpdate,
+  credPasswordUpdate,
+  resetCredentials,
+  submitSignUp,
+  toggleSignupForm,
+  displaySignupForm,
+  submitLogIn
 }) => {
+  const signUpLogInButton = ()=>{
+    if(displaySignupForm){
+      return(
+        <button className="submit" onClick={submitSignUp}>
+          Sign up
+        </button>
+      );
+    }
+
+    if(displayLoginForm){
+      return(
+        <button className="submit" onClick={submitLogIn}>
+          Sign In
+        </button>
+      );
+    }
+    return null;
+  };
+    
   const logInContent = () => {
     //is user logged in
     if (loggedIn) {
       return (
         <Fragment>
-          <h2>Welcome Back</h2>
+          <h2>Welcome!</h2>
+          <img src='https://media1.tenor.com/images/7c5b845782fc709ae23b0cb5e4941990/tenor.gif?itemid=5430037' />
         </Fragment>
       );
     } //else not logged in
 
-    if (displayLoginForm) {
+    if (displayLoginForm || displaySignupForm) {
       return (
         <Fragment>
           <h2>Credentials</h2>
           <div className="credContainer">
             {/* <label className="input"> */}
             <input
+              id="username-input"
               className="input__field"
               type="text"
               placeholder="Username"
+              onChange={credUsernameUpdate}
             />
             {/* <span className="input__label">User Name</span>
             </label>
             <label className="input"> */}
             <input
+              id = "pw-input"
               className="input__field"
               type="password"
               placeholder="Password"
+              onChange={credPasswordUpdate}
             />
-            {/* <span className="input__label">Password</span>
-            </label> */}
+            
+
             <div className="button-group">
-              <button className="submit">Send</button>
-              <button type="reset" className="submit">
+              
+              {signUpLogInButton()/**content for sign up or login
+              using same form but different button */}
+              
+              <button 
+                type="reset" 
+                className="submit"
+                onClick={resetCredentials}>
                 Reset
               </button>
             </div>
@@ -52,10 +89,10 @@ const Popup = ({
 
     return (
       <div className="logInButtonContainer">
-        <button className="signUpButton" onClick={() => loginDisplayToggler()}>
+        <button className="signUpButton" onClick={() => toggleSignupForm()}>
           Sign up
         </button>
-        <button className="logInButton">Log In</button>
+        <button className="logInButton" onClick={() => loginDisplayToggler()}>Log In</button>
       </div>
     );
   };
@@ -63,7 +100,7 @@ const Popup = ({
   const catContent = () => {
     return (
       <Fragment>
-        <img src={goblinShark} alt="goblin-shark" />
+        <img src='http://digitalpimponline.com/store/149-large_default/i-m-with-tiger-shirt.jpg' alt="mascot" />
       </Fragment>
     );
   };
@@ -71,11 +108,10 @@ const Popup = ({
   const authorContent = () => {
     return (
       <ul className="authors">
-        <li>Adda Kridler</li>
-        <li>Annie Pan</li>
-        <li>Emeric David</li>
-        <li>Hazel Na</li>
-        <li>Matilda Wang</li>
+        <li>Hasan H. O.</li>
+        <li>Damien E.</li>
+        <li>Emeric D.</li>
+        <li>Oleksii H.</li>
       </ul>
     );
   };

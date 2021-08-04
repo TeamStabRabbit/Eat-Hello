@@ -1,6 +1,7 @@
 import React, { Component, useEffect } from 'react';
 import { useState } from 'react/cjs/react.development';
 import FoodOption from './foodOption';
+import axios from 'axios';
 
 const foodOptions = [
   'Pizza',
@@ -22,18 +23,33 @@ const FoodListMaker = (foodOptions) => {
 
 const FoodOptionLists = ({ setMenu, cancelPopup }) => {
   const [clickAdd, setClickAdd] = useState('');
-  const [optionArr, setOptionArr] = useState(foodOptions);
+  const [optionArr, setOptionArr] = useState([]);
   const input = document.querySelector('.add_menu');
 
   console.log(clickAdd);
   const addMenuBtn = () => {
     if (clickAdd !== '') {
-      const copyArr = [...optionArr];
-      copyArr.push(clickAdd);
-      setOptionArr(copyArr);
+      axios.post('api/foodHistory', {
+      username: "alex",
+      foodItem: input.value
+      })
+      .then(function (response) {
+      console.log(response);
+      console.log( response.data);
+      setOptionArr(response.data);
+      })
+      .then(() => {
       setClickAdd('');
       input.value = '';
       input.focus();
+      })
+      .catch(function (error) {
+      console.log(error);
+      });
+      // const copyArr = [...optionArr];
+      // copyArr.push(clickAdd);
+      
+     
     }
   };
 

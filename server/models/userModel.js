@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
-
+const dotenv = require('dotenv').config();
 const SALT_WORK_FACTOR = 10;
 const bcrypt = require('bcryptjs');
 
-const MONGO_URI = 'mongodb+srv://<newpassword>@cluster0.njyj1.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+const MONGO_URI = process.env.mongo_URL;
 
 <<<<<<< HEAD
 // mongoose.connect(MONGO_URI, {
@@ -22,11 +22,13 @@ const MONGO_URI = 'mongodb+srv://<newpassword>@cluster0.njyj1.mongodb.net/myFirs
 =======
 mongoose.connect(MONGO_URI, {
   // options for the connect method to parse the URI
+  useCreateIndex: true,
   useNewUrlParser: true,
   useUnifiedTopology: true,
   // sets the name of the DB that our collections are part of
-  dbName: 'eat-hello',
+  dbName: 'eat',
 })
+
   .then(() => {
     console.log('Connected to Mongo DB.');
   })
@@ -49,9 +51,8 @@ const userSchema = new Schema({
   history: [String],
 });
 
-
 // this is to hash the password before saving into data
-userSchema.pre('save', function(next){
+userSchema.pre('save', function (next) {
   const salt = bcrypt.genSaltSync(SALT_WORK_FACTOR);
   const hash = bcrypt.hashSync(this.password, salt);
   this.password = hash;

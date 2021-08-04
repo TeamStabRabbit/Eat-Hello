@@ -4,7 +4,7 @@ const path = require('path');
 const PORT = 3000;
 //const mongoose = require('mongoose');
 //const userController = require('./controllers/userController');
-//const cookieParser = require('cookie-parser');
+const cookieParser = require('cookie-parser');
 const cuisineRouter = require('./routes/cuisine');
 const mapRouter = require('./routes/map');
 const mapController = require('./controllers/mapController');
@@ -13,7 +13,7 @@ const restaurantRouter = require('./routes/restaurant');
 const cors = require('cors');
 app.use(cors());
 // activate the cookieParser
-//app.use(cookieParser());
+app.use(cookieParser());
 app.use(express.json());
 
 app.use('/map', mapRouter);

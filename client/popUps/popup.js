@@ -21,19 +21,27 @@ const Popup = ({
     if (displayLoginForm) {
       return (
         <Fragment>
-          <div className='credContainer'>
-            <h2>Credentials</h2>
-            <label className='input'>
-              <input className='input__field' type='text' placeholder=' ' />
-              <span className='input__label'>User Name</span>
+          <h2>Credentials</h2>
+          <div className="credContainer">
+            {/* <label className="input"> */}
+            <input
+              className="input__field"
+              type="text"
+              placeholder="Username"
+            />
+            {/* <span className="input__label">User Name</span>
             </label>
-            <label className='input'>
-              <input className='input__field' type='text' placeholder=' ' />
-              <span className='input__label'>Password</span>
-            </label>
-            <div className='button-group'>
-              <button className='submit'>Send</button>
-              <button type='reset' className='submit'>
+            <label className="input"> */}
+            <input
+              className="input__field"
+              type="password"
+              placeholder="Password"
+            />
+            {/* <span className="input__label">Password</span>
+            </label> */}
+            <div className="button-group">
+              <button className="submit">Send</button>
+              <button type="reset" className="submit">
                 Reset
               </button>
             </div>
@@ -43,14 +51,11 @@ const Popup = ({
     }
 
     return (
-      <div className='logInButtonContainer'>
-        <button
-          className='submit signUpButton'
-          onClick={() => loginDisplayToggler()}
-        >
+      <div className="logInButtonContainer">
+        <button className="signUpButton" onClick={() => loginDisplayToggler()}>
           Sign up
         </button>
-        <button className='submit logInButton'>Log In</button>
+        <button className="logInButton">Log In</button>
       </div>
     );
   };
@@ -58,14 +63,14 @@ const Popup = ({
   const catContent = () => {
     return (
       <Fragment>
-        <img src={goblinShark} alt='goblin-shark' />
+        <img src={goblinShark} alt="goblin-shark" />
       </Fragment>
     );
   };
 
   const authorContent = () => {
     return (
-      <ul className='authors'>
+      <ul className="authors">
         <li>Adda Kridler</li>
         <li>Annie Pan</li>
         <li>Emeric David</li>
@@ -84,8 +89,8 @@ const Popup = ({
     return <h1> {popupState} </h1>;
   };
   return (
-    <div className='popUp'>
-      <div className='popUpBody'>{content()}</div>
+    <div className="popUp">
+      <div className="popUpBody">{content()}</div>
     </div>
   );
 };

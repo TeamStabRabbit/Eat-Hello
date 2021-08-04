@@ -22,7 +22,7 @@ const GoogleMap = ({ menu, zipcode, lat, lng }) => {
     );
     console.log('this is results', result);
     // let item = inputContainer[Math.floor(Math.random()*inputContainer.length)];
-    let chosenRestaurant = result[Math.floor(Math.random() * result.length)];
+    const chosenRestaurant = result[Math.floor(Math.random() * result.length)];
     // console.log('this is chosen restaurant', chosenRestaurant);
     setRestaurantLat(chosenRestaurant.geometry.location.lat);
     setRestaurantLng(chosenRestaurant.geometry.location.lng);
@@ -31,7 +31,7 @@ const GoogleMap = ({ menu, zipcode, lat, lng }) => {
   }, [lat]);
 
   const loader = new Loader({
-    apiKey: 'AIzaSyAWZT1oyUbY7x-g5-qo59d97tggGD2n54w',
+    apiKey: `${process.env.GEOCODING}`,
     libraries: ['places'],
   });
 
@@ -55,7 +55,7 @@ const GoogleMap = ({ menu, zipcode, lat, lng }) => {
       const infowindow = new google.maps.InfoWindow({
         content: `<strong>Come eat here!! @ </strong> ${restaurant},   <strong> Address: </strong> ${address} `,
       });
-      let marker = new google.maps.Marker({
+      const marker = new google.maps.Marker({
         //myLatlng,
         position: {
           lat: restaurantLat,
@@ -83,8 +83,8 @@ const GoogleMap = ({ menu, zipcode, lat, lng }) => {
     });
 
   return (
-    <div className='google_map'>
-      <div id='map'>hi</div>
+    <div className="google_map">
+      <div id="map">hi</div>
     </div>
   );
 };

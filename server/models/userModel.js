@@ -13,6 +13,7 @@ mongoose.connect(MONGO_URI, {
   // sets the name of the DB that our collections are part of
   dbName: 'eat',
 })
+
   .then(() => {
     console.log('Connected to Mongo DB.');
   })
@@ -34,9 +35,8 @@ const userSchema = new Schema({
   history: [String],
 });
 
-
 // this is to hash the password before saving into data
-userSchema.pre('save', function(next){
+userSchema.pre('save', function (next) {
   const salt = bcrypt.genSaltSync(SALT_WORK_FACTOR);
   const hash = bcrypt.hashSync(this.password, salt);
   this.password = hash;

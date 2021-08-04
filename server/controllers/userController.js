@@ -7,7 +7,7 @@ const userController = {};
 userController.readParams = (req, res, next) => {
   const { username, password } = req.body;
   res.locals = { username, password };
-  //console.log('locals in readParams are un,pw', res.locals.username , res.locals.password);
+  console.log('locals in readParams are un,pw', res.locals.username , res.locals.password);
   return next();
 };
 
@@ -17,7 +17,9 @@ userController.addDataBaseEntry = async (req, res, next) => {
   await User.create({ username, password }, (err, user) => {
     //if err do something
     if(err){
-      res.render('/', {error: err});
+      console.log('error in AddDataBase Entry', err);
+      return next(err);
+      // res.render('/', {error: err});
     }
     else {
       //console.log('user: ', user);
@@ -34,10 +36,11 @@ userController.addDataBaseEntry = async (req, res, next) => {
 
 userController.getUser = async (req,res,next) =>{
   const username = res.locals.username;
-  const result = await User.findOne({ username }, (err, username) => {
+  const result = await User.findOne({ username: username }, (err, username) => {
     if (!username || err) {
       console.log('user not found');
-      res.redirect('/api/signup');  
+      //res.redirect('/api/signup'); 
+      next(err); 
     }
   });
   console.log('result', result);
@@ -81,9 +84,7 @@ userController.pushFoodHistory = async (req, res, next) => {
     else{
       return next();
     }
-    
   });
-
 };
 
 

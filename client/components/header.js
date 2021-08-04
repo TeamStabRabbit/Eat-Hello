@@ -21,6 +21,13 @@ const Header = ({
   menu,
   username,
   loginDisplayToggler,
+  credPasswordUpdate,
+  credUsernameUpdate,
+  resetCredentials,
+  submitSignUp,
+  toggleSignupForm,
+  displaySignupForm,
+  submitLogIn
 }) => {
   const [popupState, popupSet] = useState(0);
   const [history, setHistory] = useState(false);
@@ -47,6 +54,13 @@ const Header = ({
         loggedIn={loggedIn}
         displayLoginForm={displayLoginForm}
         loginDisplayToggler={loginDisplayToggler}
+        credPasswordUpdate={credPasswordUpdate}
+        credUsernameUpdate={credUsernameUpdate}
+        resetCredentials={resetCredentials}
+        submitSignUp={submitSignUp}
+        toggleSignupForm={toggleSignupForm}
+        displaySignupForm={displaySignupForm}
+        submitLogIn={submitLogIn}
       />
     ) : null;
   }
@@ -60,11 +74,11 @@ const Header = ({
           </div>
 
           <div className='headName'>
-            <h2>Annie App 2.0</h2>
+            <h2>Annie App 4.20</h2>
           </div>
 
           <div className='headIcons-Left'>
-            <FontAwesomeIcon icon={faUtensils} size='2x' />
+            {/* <FontAwesomeIcon icon={faUtensils} size='2x' /> */}
             <FontAwesomeIcon icon={faPizzaSlice} size='2x' />
             <FontAwesomeIcon icon={faHamburger} size='2x' />
             <FontAwesomeIcon icon={faDrumstickBite} size='2x' />
@@ -96,7 +110,13 @@ const Header = ({
 
             <div
               className='signIn-Button'
-              onClick={() => togglePopUpHandler('signIn')}
+              onClick={() => {
+                togglePopUpHandler('signIn');
+                //turn off the display, bring you back to buttons
+                if(displayLoginForm) loginDisplayToggler();
+                if(displaySignupForm) toggleSignupForm();
+              }
+              }
             >
               <FontAwesomeIcon icon={faIdBadge} size='2x' />
             </div>

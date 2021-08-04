@@ -10,9 +10,14 @@ const cuisineRouter = require('./routes/cuisine');
 const mapRouter = require('./routes/map');
 const mapController = require('./controllers/mapController');
 const restaurantRouter = require('./routes/restaurant');
+const bodyParser = require('body-parser');
 
 const cors = require('cors');
 app.use(cors());
+app.use(bodyParser.urlencoded({ extended: false }));
+ 
+// parse application/json
+app.use(bodyParser.json());
 // activate the cookieParser
 app.use(cookieParser());
 app.use(express.json());

@@ -1,25 +1,41 @@
 const mongoose = require('mongoose');
 const dotenv = require('dotenv').config();
-
 const SALT_WORK_FACTOR = 10;
 const bcrypt = require('bcryptjs');
 
 const MONGO_URI = process.env.mongo_URL;
 
+<<<<<<< HEAD
+// mongoose.connect(MONGO_URI, {
+//   // options for the connect method to parse the URI
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+//   // sets the name of the DB that our collections are part of
+//   dbName: 'eat-hello',
+// })
+//   .then(() => {
+//     console.log('Connected to Mongo DB.');
+//   })
+//   .catch((err) => {
+//     console.log(err);
+//   });
+=======
 mongoose.connect(MONGO_URI, {
   // options for the connect method to parse the URI
+  useCreateIndex: true,
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  useCreateIndex: true,
   // sets the name of the DB that our collections are part of
   dbName: 'eat',
 })
+
   .then(() => {
     console.log('Connected to Mongo DB.');
   })
   .catch((err) => {
     console.log(err);
   });
+>>>>>>> 2e55fdba76beab90d8eb4a80ae22de54be4aaa74
 
 // eslint-disable-next-line prefer-destructuring
 const Schema = mongoose.Schema;
@@ -35,9 +51,8 @@ const userSchema = new Schema({
   history: [String],
 });
 
-
 // this is to hash the password before saving into data
-userSchema.pre('save', function(next){
+userSchema.pre('save', function (next) {
   const salt = bcrypt.genSaltSync(SALT_WORK_FACTOR);
   const hash = bcrypt.hashSync(this.password, salt);
   this.password = hash;

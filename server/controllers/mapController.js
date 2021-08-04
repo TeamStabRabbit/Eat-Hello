@@ -1,6 +1,7 @@
 const axios = require('axios');
 const dotenv = require('dotenv').config();
 
+
 const mapController = {};
 
 // mapController.testing = async (res, req, next) => {
@@ -18,13 +19,19 @@ const mapController = {};
 
 // };
 
+const geoAPI = process.env.GEOCODING;
+const placeAPI = process.env.PLACES;
+
 mapController.getGeoCode = async (res, req, next) => {
   try {
-    const response = await axios.get(`https://maps.googleapis.com/maps/api/place/textsearch/json?query=restaurants+toronto+canada&key=${process.env.GOOGLE_API}`);
-    //console.log(response.data.results);
-    res.locals = { data : response.data.results };
-    //console.log('res.locals.data: ', res.locals.data);
-    // console.log('this is working. end of await');
+    const zipCode = res.body.zipCode;
+    const zipUrl = `https://maps.googleapis.com/maps/api/geocode/json?components=postal_code:${zipCode}&key=${geoAPI}`;
+    const response = await axios.get(zipUrl);
+    console.log(response.data.results[0].geometry);
+    res.locals = {
+      lat: response.data.results[0].geometry.location.lat,
+      lng: response.data.results[0].geometry.location.lng,
+    };
     return next();
   } catch (err) {
     console.log('mapController.geoCode error: ', err);
@@ -39,7 +46,7 @@ mapController.sendRestaurant = async (res, req, next) => {
     const lat = res.body.lat;
     const lng = res.body.lng;
     // console.log(`menu:`, menu, `lat:`, lat, `lng:`, lng);
-    const restaurantUrl = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${menu}}&type=restaurant&location=${lat},${lng}&radius=2000&key=AIzaSyCaSo1pxwCY44jihxAMHhJjVJ3mHbFLsPw`;
+    const restaurantUrl = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${menu}}&type=restaurant&location=${lat},${lng}&radius=2000&key=${placeAPI}`;
     const response = await axios.get(restaurantUrl);
     res.locals = { restaurants: response.data.results };
     return next();

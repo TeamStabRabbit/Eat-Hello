@@ -30,22 +30,22 @@ const FoodOptionLists = ({ setMenu, cancelPopup }) => {
   const addMenuBtn = () => {
     if (clickAdd !== '') {
       axios.post('api/foodHistory', {
-      username: "alex",
-      foodItem: input.value
+        username: 'alex',
+        foodItem: input.value
       })
-      .then(function (response) {
-      console.log(response);
-      console.log( response.data);
-      setOptionArr(response.data);
-      })
-      .then(() => {
-      setClickAdd('');
-      input.value = '';
-      input.focus();
-      })
-      .catch(function (error) {
-      console.log(error);
-      });
+        .then(function (response) {
+          console.log(response);
+          console.log(response.data);
+          setOptionArr(response.data);
+        })
+        .then(() => {
+          setClickAdd('');
+          input.value = '';
+          input.focus();
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
       // const copyArr = [...optionArr];
       // copyArr.push(clickAdd);
       

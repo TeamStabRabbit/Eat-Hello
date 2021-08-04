@@ -26,7 +26,7 @@ const FoodOptionLists = ({ setMenu, cancelPopup }) => {
   const [optionArr, setOptionArr] = useState([]);
   const input = document.querySelector('.add_menu');
 
-  console.log(clickAdd);
+  // console.log(clickAdd);
   const addMenuBtn = () => {
     if (clickAdd !== '') {
       axios.post('api/foodHistory', {

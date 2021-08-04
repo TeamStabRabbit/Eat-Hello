@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const PORT = 3000;
+const dotenv = require('dotenv').config();
 //const mongoose = require('mongoose');
 //const userController = require('./controllers/userController');
 const cookieParser = require('cookie-parser');
@@ -9,9 +10,14 @@ const cuisineRouter = require('./routes/cuisine');
 const mapRouter = require('./routes/map');
 const mapController = require('./controllers/mapController');
 const restaurantRouter = require('./routes/restaurant');
+const bodyParser = require('body-parser');
 
 const cors = require('cors');
 app.use(cors());
+app.use(bodyParser.urlencoded({ extended: false }));
+ 
+// parse application/json
+app.use(bodyParser.json());
 // activate the cookieParser
 app.use(cookieParser());
 app.use(express.json());

@@ -1,4 +1,4 @@
-Annie app v.2.0
+Annie app v.4.20
 
 The final project is updated in production branch (not main)
 

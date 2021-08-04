@@ -22,7 +22,7 @@ router.post('/login', userController.readParams, userController.getUser, userCon
  * signup
  */
 router.post('/signup', userController.readParams, userController.addDataBaseEntry, (req, res) => {
-  res.status(200).send();
+  res.status(200).send(true);
 });
 
 router.get('/foodHistory', userController.getFoodHistory, (req, res) => {
@@ -35,7 +35,7 @@ router.get('/foodHistory', userController.getFoodHistory, (req, res) => {
 });
 
 router.post('/foodHistory', userController.pushFoodHistory, userController.getFoodHistory, (req, res) => {
-   return res.status(200).json(res.locals.history);
+  return res.status(200).json(res.locals.history);
 });
 
 

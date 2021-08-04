@@ -11,12 +11,12 @@ const Footer = () => {
         <div className="designDetails">
           <p>
             <FontAwesomeIcon icon={faCat} size="1x" /> Designed and build by the{' '}
-            <br></br> New York #27 goblin shark team
+            <br></br> New York #27 Stab Rabbit Team
           </p>
           <br></br>
           <p>Code licensed MIT, docs CC BY 3.0.</p>
           <br></br>
-          <p>Currently v0.1.3</p>
+          <p>Currently v4.2.0.69 'nice'</p>
         </div>
         {/* FOOTER TWO */}
         <div className="detailsFlex">
@@ -27,7 +27,7 @@ const Footer = () => {
               </li>
               <li>New York</li>
               <li>Immersive 27</li>
-              <li>Goblin Shark</li>
+              <li>Stab Rabbit</li>
             </ul>
           </div>
           <div className="col2">

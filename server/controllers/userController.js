@@ -84,7 +84,7 @@ userController.pushFoodHistory = async (req, res, next) => {
     
   });
 
-// };
+};
 
 
 userController.passwordCompare = async (req,res,next) =>{

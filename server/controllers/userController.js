@@ -72,17 +72,17 @@ userController.getFoodHistory = async (req,res,next) =>{
 // };
 
 userController.pushFoodHistory = async (req, res, next) => {
-   const {username, foodItem} = req.body;
-   const ressoltio = await User.update({username}, {$addToSet: {history: foodItem}}, (err, result)=>{
-     if (err){
+  const {username, foodItem} = req.body;
+  const ressoltio = await User.update({username}, {$addToSet: {history: foodItem}}, (err, result)=>{
+    if (err){
       console.log('err: ', err);
       return next(err); 
-     }
-  else{
+    }
+    else{
       return next();
     }
     
-   });
+  });
 
 };
 

@@ -1,5 +1,5 @@
 const axios = require('axios');
-
+const keyApi = require('dotenv').config();
 const mapController = {};
 
 // mapController.testing = async (res, req, next) => {
@@ -20,8 +20,10 @@ const mapController = {};
 mapController.getGeoCode = async (res, req, next) => {
   try {
     const zipCode = res.body.zipCode;
-    const zipUrl = `https://maps.googleapis.com/maps/api/geocode/json?components=postal_code:${zipCode}&key=AIzaSyCaSo1pxwCY44jihxAMHhJjVJ3mHbFLsPw `;
+    console.log(zipCode);
+    const zipUrl = `https://maps.googleapis.com/maps/api/geocode/json?components=postal_code:${zipCode}&key=AIzaSyAWZT1oyUbY7x-g5-qo59d97tggGD2n54w`;
     const response = await axios.get(zipUrl);
+    console.log(response.data.results[0].geometry);
     res.locals = {
       lat: response.data.results[0].geometry.location.lat,
       lng: response.data.results[0].geometry.location.lng,
@@ -40,7 +42,7 @@ mapController.sendRestaurant = async (res, req, next) => {
     const lat = res.body.lat;
     const lng = res.body.lng;
     // console.log(`menu:`, menu, `lat:`, lat, `lng:`, lng);
-    const restaurantUrl = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${menu}}&type=restaurant&location=${lat},${lng}&radius=2000&key=AIzaSyCaSo1pxwCY44jihxAMHhJjVJ3mHbFLsPw`;
+    const restaurantUrl = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${menu}}&type=restaurant&location=${lat},${lng}&radius=2000&key=AIzaSyAFWhaCXVDofPkFpzFqwOYLQIjXAoJez9Q`;
     const response = await axios.get(restaurantUrl);
     res.locals = { restaurants: response.data.results };
     return next();

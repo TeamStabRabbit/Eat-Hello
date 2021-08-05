@@ -18,7 +18,7 @@ router.post('/', mapController.getGeoCode, (req, res) => {
   //   console.log('finally sending back!!', req.locals);
   return res
     .status(200)
-    .send({ latitude: req.locals.lat, longitude: req.locals.lng });
+    .send({ latitude: res.locals.lat, longitude: res.locals.lng });
 });
 
 module.exports = router;

@@ -11,24 +11,29 @@ import GoogleService from '../service/googleService';
 
 const GoogleMap = ({ menu, zipcode, lat, lng }) => {
   const [restaurant, setRestaurant] = useState('');
-  const [restaurantLat, setRestaurantLat] = useState(40.7285229);
-  const [restaurantLng, setRestaurantLng] = useState(-73.9880155);
+  const [restaurantLat, setRestaurantLat] = useState(34.007889);
+  const [restaurantLng, setRestaurantLng] = useState(-118.2585096);
   const [address, setAddress] = useState('');
-
+  const [imgLink, setimgLink] = useState('');
+  const [rate, setRate] = useState('');
   useEffect(async () => {
     const result = await GoogleService.postRestaurant(
       'http://localhost:3000/restaurant',
       { menu: menu, lat: lat, lng: lng }
-    );
-    console.log('this is results', result);
-    // let item = inputContainer[Math.floor(Math.random()*inputContainer.length)];
-    const chosenRestaurant = result[Math.floor(Math.random() * result.length)];
-    // console.log('this is chosen restaurant', chosenRestaurant);
-    setRestaurantLat(chosenRestaurant.geometry.location.lat);
-    setRestaurantLng(chosenRestaurant.geometry.location.lng);
-    setRestaurant(chosenRestaurant.name);
-    setAddress(chosenRestaurant.formatted_address);
-  }, [lat]);
+    ).then(result => {
+      setRestaurantLat(result.location.lat);
+      setRestaurantLng(result.location.lng);
+      setRestaurant(result.name);
+      setimgLink(result.pic);
+      setRate(result.rating);
+    });
+    // console.log('this is results', result);
+    
+    // // let item = inputContainer[Math.floor(Math.random()*inputContainer.length)];
+    // // const chosenRestaurant = result[Math.floor(Math.random() * result.length)];
+    // console.log('this is chosen restaurant', result);
+    
+  }, [lng]);
 
   const loader = new Loader({
     apiKey: `${process.env.GEOCODING}`,
@@ -67,24 +72,25 @@ const GoogleMap = ({ menu, zipcode, lat, lng }) => {
       marker.addListener('click', () => {
         infowindow.open({
           anchor: marker,
-          map,
+          // map,
           shouldFocus: false,
         });
       });
       marker.setMap(Gmap);
-      console.log(
-        'this is marker location',
-        marker.position.lat,
-        marker.position.lng
-      );
     })
     .catch((e) => {
       console.log('THIS DONT WORKKK', e);
     });
-
   return (
-    <div className="google_map">
-      <div id="map">hi</div>
+    <div className="map_wrapper">
+      <div className='google_map'>
+        <div id='map'></div>
+      </div>
+      <div className='map-side-info'>
+        <h2>{restaurant}</h2>
+        <p> Rating: {rate}</p>
+        <img className='map-side-img' src={imgLink}/>
+      </div>
     </div>
   );
 };

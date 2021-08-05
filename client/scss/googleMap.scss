@@ -11,9 +11,21 @@
 }
 
 #map {
-  width: 60vw;
-  height: 80vh;
+  width: 55vw;
+  height: 55vh;
   background-color: blue;
+}
+
+.map-side-info {
+  width: 20em;
+  height: 20em;
+  margin-left: 20px;
+  border: 3px solid blue;
+}
+
+.map-side-img {
+  width: 15em;
+  height: 15em;
 }
 
 .gMapInner svg {

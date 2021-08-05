@@ -3,7 +3,7 @@ import Popup from '../popUps/popup';
 import ZipCode from './zipcode';
 import FoodOptionLists from './foodOptionLists';
 
-const FoodPicker = ({ setMenu, menu, setZipcode, zipcode, loggedIn, userName }) => {
+const FoodPicker = ({ setMenu, menu, setZipcode, zipcode, loggedIn, userName, optionArr, setOptionArr }) => {
   const [optionClick, setOptionClick] = useState(false);
 
   return (
@@ -22,6 +22,8 @@ const FoodPicker = ({ setMenu, menu, setZipcode, zipcode, loggedIn, userName }) 
             cancelPopup={() => setOptionClick(false)}
             loggedIn={loggedIn}
             userName={userName}
+            optionArr={optionArr}
+            setOptionArr={setOptionArr}
           />
         )}
         {menu && (

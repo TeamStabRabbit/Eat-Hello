@@ -3,17 +3,17 @@ import { useState } from 'react/cjs/react.development';
 import FoodOption from './foodOption';
 import axios from 'axios';
 
-const foodOptions = [
-  'Pizza',
-  'Dimsum',
-  'Burgers',
-  'Pasta',
-  'BBQ',
-  'Sushi',
-  'Mexican',
-  'Seafood',
-  'Thai',
-];
+// const foodOptions = [
+//   'Pizza',
+//   'Dimsum',
+//   'Burgers',
+//   'Pasta',
+//   'BBQ',
+//   'Sushi',
+//   'Mexican',
+//   'Seafood',
+//   'Thai',
+// ];
 
 const FoodListMaker = (foodOptions) => {
   return foodOptions.map((food, idx) => {
@@ -21,9 +21,18 @@ const FoodListMaker = (foodOptions) => {
   });
 };
 
-const FoodOptionLists = ({ setMenu, cancelPopup, loggedIn, userName }) => {
+const FoodOptionLists = ({ 
+  setMenu,
+  cancelPopup,
+  loggedIn,
+  userName,
+  optionArr,
+  setOptionArr
+}) => {
   const [clickAdd, setClickAdd] = useState('');
-  const [optionArr, setOptionArr] = useState([]);
+
+
+  
   const input = document.querySelector('.add_menu');
 
   const addMenuBtn = () => {
@@ -35,8 +44,8 @@ const FoodOptionLists = ({ setMenu, cancelPopup, loggedIn, userName }) => {
           foodItem: input.value
         })
           .then(function (response) {
-            console.log(response);
-            console.log(response.data);
+            console.log('response is', response);
+            console.log('response.data is', response.data);
             setOptionArr(response.data);
           })
           .then(() => {

@@ -51,9 +51,10 @@ userController.getUser = async (req,res,next) =>{
 };
 
 userController.getFoodHistory = async (req,res,next) =>{
-  const { username } = req.body;
-  const result = await User.findOne({ username }, (err, username) => {
-    if (!username || err) {
+  const { username } = req.params;
+  console.log('username is the following in user controller', username)
+  const result = await User.findOne({ username: username }, (err, data) => {
+    if (!data || err) {
       console.log('user not found');
       res.redirect('/api/signup');  
     }

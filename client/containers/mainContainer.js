@@ -13,7 +13,19 @@ const MainContainer = () => {
   const [stateCredObj, setCredObj] = useState({username:'',password:'',});
   const [displayLoginForm, toggleDisplayLoginForm] = useState(false);
   const [displaySignupForm, setDisplaySignupForm] = useState(false);
+  const [optionArr, setOptionArr] = useState([]);
 
+  const getHistory = () => {
+    //make the get request
+    console.log('the user creds are ', stateCredObj);
+    axios.get('/api/foodhistory/', {params:{username:stateCredObj.username}})
+      .then(data => {
+        console.log('the history is', data.payload.history);
+        setOptionArr(data.payload.history);        
+      })
+      .catch(err => console.log('Error in getHistory in mainContainer'));
+    //add it to state
+  };
 
   const toggleSignupForm = ()=>{
     setDisplaySignupForm((prev)=>!prev);
@@ -66,6 +78,8 @@ const MainContainer = () => {
         loginSuccess = data.data.payload.passwordsMatch;
         if (loginSuccess === true) {
           setLoggedIn(()=> true);
+          getHistory();
+          //ON SUCCESSFUL LOG IN ADD A GET REQUEST TO HISTORY
         } else repeatPasswordWarning();
       })
       .catch(()=>{
@@ -130,6 +144,8 @@ const MainContainer = () => {
           zipcode={zipcode}
           loggedIn={loggedIn}
           userName={stateCredObj.username}
+          optionArr={optionArr}
+          setOptionArr={setOptionArr}
         />
         <Footer />
       </div>

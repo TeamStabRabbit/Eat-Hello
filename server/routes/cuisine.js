@@ -25,7 +25,7 @@ router.post('/signup', userController.readParams, userController.addDataBaseEntr
   res.status(200).send(true);
 });
 
-router.get('/foodHistory', userController.getFoodHistory, (req, res) => {
+router.get('/foodHistory/:username', userController.getFoodHistory, (req, res) => {
   return res.json({
     status: true,
     payload: {
@@ -33,6 +33,7 @@ router.get('/foodHistory', userController.getFoodHistory, (req, res) => {
     }
   });
 });
+
 
 router.post('/foodHistory', userController.pushFoodHistory, userController.getFoodHistory, (req, res) => {
   return res.status(200).json(res.locals.history);

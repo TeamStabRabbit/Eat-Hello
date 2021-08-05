@@ -10,7 +10,7 @@ const MainContainer = () => {
   const [menu, setMenu] = useState('');
   const [zipcode, setZipcode] = useState(0);
   // const [username, setusername] = useState('');
-  const [stateCredObj, setCredObj] = useState({username:'',password:'',});
+  const [stateCredObj, setCredObj] = useState({ username: '', password: '' });
   const [displayLoginForm, toggleDisplayLoginForm] = useState(false);
   const [displaySignupForm, setDisplaySignupForm] = useState(false);
   const [optionArr, setOptionArr] = useState([]);
@@ -18,85 +18,90 @@ const MainContainer = () => {
   const getHistory = () => {
     //make the get request
     console.log('the user creds are ', stateCredObj);
-    axios.get('/api/foodhistory/', {params:{username:stateCredObj.username}})
-      .then(data => {
-        console.log('the history is', data.payload.history);
-        setOptionArr(data.payload.history);        
+    axios
+      .get('/api/foodHistory', {
+        params: { username: stateCredObj.username },
       })
-      .catch(err => console.log('Error in getHistory in mainContainer'));
+      .then((data) => {
+        console.log('the history is', data);
+        setOptionArr(data.data.payload.history);
+      })
+      .catch((err) => console.log('Error in getHistory in mainContainer'));
     //add it to state
   };
 
-  const toggleSignupForm = ()=>{
-    setDisplaySignupForm((prev)=>!prev);
+  const toggleSignupForm = () => {
+    setDisplaySignupForm((prev) => !prev);
   };
 
   //sent menu url to the server
-  const repeatUserNameWarning = async()=>{
+  const repeatUserNameWarning = async () => {
     const element = document.getElementById('username-input');
 
     element.classList.add('wrong-input');
-    setTimeout(()=>element.classList.remove('wrong-input'), 1100);
+    setTimeout(() => element.classList.remove('wrong-input'), 1100);
   };
 
-  const repeatPasswordWarning = async()=>{
+  const repeatPasswordWarning = async () => {
     const element = document.getElementById('pw-input');
 
     element.classList.add('wrong-input');
-    setTimeout(()=>element.classList.remove('wrong-input'), 1100);
+    setTimeout(() => element.classList.remove('wrong-input'), 1100);
   };
 
-  const submitSignUp = ()=>{
+  const submitSignUp = () => {
     //take the cred object
     let resSuccess;
-    const {username,password} = stateCredObj;
-    // make a post request to the back end 
-    axios.post('/api/signup', {
-      username: username,
-      password: password,
-    })
-      .then(data=> {
+    const { username, password } = stateCredObj;
+    // make a post request to the back end
+    axios
+      .post('/api/signup', {
+        username: username,
+        password: password,
+      })
+      .then((data) => {
         resSuccess = data.data;
-        if(resSuccess === true){
-          setLoggedIn(()=>true);
-          //play them the goodjob gif 
+        if (resSuccess === true) {
+          setLoggedIn(() => true);
+          //play them the goodjob gif
           //well have to change the popup display state
         } else repeatUserNameWarning();
       })
-      .catch(()=>repeatUserNameWarning());
+      .catch(() => repeatUserNameWarning());
   };
 
   const submitLogIn = () => {
     let loginSuccess;
-    const {username, password} = stateCredObj;
-    axios.post('/api/login', {
-      username: username,
-      password: password,
-    })
-      .then(data => {
+    const { username, password } = stateCredObj;
+    axios
+      .post('/api/login', {
+        username: username,
+        password: password,
+      })
+      .then((data) => {
         console.log('username, password pair is,', username, password);
         loginSuccess = data.data.payload.passwordsMatch;
         if (loginSuccess === true) {
-          setLoggedIn(()=> true);
+          setLoggedIn(() => true);
           getHistory();
           //ON SUCCESSFUL LOG IN ADD A GET REQUEST TO HISTORY
         } else repeatPasswordWarning();
       })
-      .catch(()=>{
+      .catch(() => {
         console.log('username, password pair is,', username, password);
         repeatPasswordWarning();
       });
   };
 
-  const credPasswordUpdate = (e)=>{
+  const credPasswordUpdate = (e) => {
     const newPassword = e.target.value;
-    setCredObj((stateCredObj)=> {
+    setCredObj((stateCredObj) => {
       stateCredObj.password = newPassword;
       return stateCredObj;
     });
   };
-  
-  const credUsernameUpdate = (e)=>{
+
+  const credUsernameUpdate = (e) => {
     const newUsername = e.target.value;
     setCredObj((stateCredObj) => {
       stateCredObj.username = newUsername;
@@ -114,11 +119,11 @@ const MainContainer = () => {
     });
   };
 
-  const loginDisplayToggler = ()=>{
-    toggleDisplayLoginForm(()=>!displayLoginForm);
+  const loginDisplayToggler = () => {
+    toggleDisplayLoginForm(() => !displayLoginForm);
   };
   return (
-    <div className='main_container'>
+    <div className="main_container">
       <Header
         loggedIn={loggedIn}
         displayLoginForm={displayLoginForm}
@@ -132,11 +137,8 @@ const MainContainer = () => {
         displaySignupForm={displaySignupForm}
         submitLogIn={submitLogIn}
       />
-      <div className='main'>
-        <FoodGenerator 
-          menu={menu}
-          
-        />
+      <div className="main">
+        <FoodGenerator menu={menu} />
         <FoodPicker
           setMenu={setMenu}
           menu={menu}

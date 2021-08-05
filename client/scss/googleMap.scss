@@ -9,7 +9,9 @@
   width: 900px;
   height: 650px;
 }
-
+.map_wrapper{
+  display: flex;
+}
 #map {
   width: 55vw;
   height: 55vh;

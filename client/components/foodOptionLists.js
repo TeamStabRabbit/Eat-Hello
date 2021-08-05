@@ -34,8 +34,6 @@ const FoodOptionLists = ({ setMenu, cancelPopup }) => {
         foodItem: input.value
       })
         .then(function (response) {
-          console.log(response);
-          console.log(response.data);
           setOptionArr(response.data);
         })
         .then(() => {

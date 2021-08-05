@@ -25,12 +25,13 @@ const placeAPI = process.env.PLACES;
 mapController.getGeoCode = async (req, res, next) => {
   try {
     const zipCode = req.body.zipCode;
-    const zipUrl = `https://maps.googleapis.com/maps/api/geocode/json?components=postal_code:${zipCode}&key=${geoAPI}`;
+    console.log(zipCode);
+    const zipUrl = `https://maps.googleapis.com/maps/api/geocode/json?components=postal_code:${zipCode}&key=AIzaSyAWZT1oyUbY7x-g5-qo59d97tggGD2n54w`;
     const response = await axios.get(zipUrl);
     //  console.log('this is my geo func', response.data);
     //  console.log(response.data.results[0].geometry);
-   
-    res.locals.latlng = {
+     console.log(response.data);
+    res.locals = {
       lat: response.data.results[0].geometry.location.lat,
       lng: response.data.results[0].geometry.location.lng,
     };
@@ -53,8 +54,8 @@ mapController.sendRestaurant = async (req, res, next) => {
     const { menu, lat, lng } = req.body;
     //   // console.log(`menu:`, menu, `lat:`, lat, `lng:`, lng);
     //  let restaurantUrl = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${menu}}&type=restaurant&location=${lat},${lng}&radius=2000&key=${placeAPI}`;
-    // const restaurantUrl  = await `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&radius=2000&type=restaurant&keyword=${menu}&key=${placeAPI}`;
-    const restaurantUrl  =  `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=41.6507919,-73.784939&radius=2000&type=restaurant&keyword=pizza&key=${placeAPI}`;
+    const restaurantUrl  = await `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&radius=2000&type=restaurant&keyword=${menu}&key=${placeAPI}`;
+    // const restaurantUrl  =  `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=41.6507919,-73.784939&radius=2000&type=restaurant&keyword=pizza&key=${placeAPI}`;
     const response = await axios.get(restaurantUrl);
     // console.log("this is alllllllllll", response.data);
     //picture url path response.data.results[0].photos[0].photo_reference
@@ -65,8 +66,9 @@ mapController.sendRestaurant = async (req, res, next) => {
     // console.log("this is alllllllllll data results :D", response.data.results[0].rating);
     // console.log("this is alllllllllll results :D", response.results);
     const pictureRef = await response.data.results[0].photos[0].photo_reference;
+    console.log(response.data.results[0]);
     const pic = await `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${pictureRef}&key=${placeAPI}`;
-    res.locals.restaurantInfo = { name:response.data.results[0].name, rating: response.data.results[0].rating, pic:pic };
+    res.locals.restaurantInfo = {location:response.data.results[0].geometry.location,  name:response.data.results[0].name, rating: response.data.results[0].rating, pic:pic };
     // console.log('got here');
     // res.locals.info = "hhhhhhhh";
     return next();

@@ -11,8 +11,8 @@ import GoogleService from '../service/googleService';
 
 const GoogleMap = ({ menu, zipcode, lat, lng }) => {
   const [restaurant, setRestaurant] = useState('');
-  const [restaurantLat, setRestaurantLat] = useState(40.7285229);
-  const [restaurantLng, setRestaurantLng] = useState(-73.9880155);
+  const [restaurantLat, setRestaurantLat] = useState(34.007889);
+  const [restaurantLng, setRestaurantLng] = useState(-118.2585096);
   const [address, setAddress] = useState('');
   const [imgLink, setimgLink] = useState('');
   const [rate, setRate] = useState('');
@@ -20,17 +20,19 @@ const GoogleMap = ({ menu, zipcode, lat, lng }) => {
     const result = await GoogleService.postRestaurant(
       'http://localhost:3000/restaurant',
       { menu: menu, lat: lat, lng: lng }
-    );
-    console.log('this is results', result);
+    ).then(result => {
+      setRestaurantLat(result.location.lat);
+      setRestaurantLng(result.location.lng);
+      setRestaurant(result.name);
+      setimgLink(result.pic);
+      setRate(result.rating);
+    });
+    // console.log('this is results', result);
     
-    // let item = inputContainer[Math.floor(Math.random()*inputContainer.length)];
-    // const chosenRestaurant = result[Math.floor(Math.random() * result.length)];
-    console.log('this is chosen restaurant', result);
-    setRestaurantLat(result.location.lat);
-    setRestaurantLng(result.location.lng);
-    setRestaurant(result.name);
-    setimgLink(result.pic);
-    setRate(result.rating);
+    // // let item = inputContainer[Math.floor(Math.random()*inputContainer.length)];
+    // // const chosenRestaurant = result[Math.floor(Math.random() * result.length)];
+    // console.log('this is chosen restaurant', result);
+    
   }, [lng]);
 
   const loader = new Loader({
@@ -70,7 +72,7 @@ const GoogleMap = ({ menu, zipcode, lat, lng }) => {
       marker.addListener('click', () => {
         infowindow.open({
           anchor: marker,
-          map,
+          // map,
           shouldFocus: false,
         });
       });

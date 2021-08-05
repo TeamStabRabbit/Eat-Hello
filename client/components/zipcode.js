@@ -4,8 +4,9 @@ import GoogleService from '../service/googleService';
 
 const ZipCode = ({ menu, setZipcode, zipcode }) => {
   const [click, setClick] = useState(false);
-  const [lat, setLat] = useState(40.7128);
-  const [lng, setLng] = useState(-74.006);
+  const [lat, setLat] = useState('');
+  const [lng, setLng] = useState('');
+
 
   const SetZipCode = (num) => {
     setZipcode(num);
@@ -16,8 +17,8 @@ const ZipCode = ({ menu, setZipcode, zipcode }) => {
     const num = Number(zipcode);
     if (zipcode.length === 5 && typeof num === 'number') {
       setClick(true);
-      input.value = '';
-      input.focus();
+      // input.value = '';
+      // input.focus();
       postZipcode();
     } else {
       alert('The Zipcode should be 5 digits NUMBER!');
@@ -34,7 +35,9 @@ const ZipCode = ({ menu, setZipcode, zipcode }) => {
     const result = await GoogleService.postGoogleZipcode(
       'http://localhost:3000/map',
       { zipCode: zipcode }
+      
     );
+    console.log('here');
     setLat(result.latitude);
     setLng(result.longitude);
   };

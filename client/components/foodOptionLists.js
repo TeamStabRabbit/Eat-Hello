@@ -3,17 +3,17 @@ import { useState } from 'react/cjs/react.development';
 import FoodOption from './foodOption';
 import axios from 'axios';
 
-const foodOptions = [
-  'Pizza',
-  'Dimsum',
-  'Burgers',
-  'Pasta',
-  'BBQ',
-  'Sushi',
-  'Mexican',
-  'Seafood',
-  'Thai',
-];
+// const foodOptions = [
+//   'Pizza',
+//   'Dimsum',
+//   'Burgers',
+//   'Pasta',
+//   'BBQ',
+//   'Sushi',
+//   'Mexican',
+//   'Seafood',
+//   'Thai',
+// ];
 
 const FoodListMaker = (foodOptions) => {
   return foodOptions.map((food, idx) => {
@@ -21,35 +21,48 @@ const FoodListMaker = (foodOptions) => {
   });
 };
 
-const FoodOptionLists = ({ setMenu, cancelPopup }) => {
+const FoodOptionLists = ({ 
+  setMenu,
+  cancelPopup,
+  loggedIn,
+  userName,
+  optionArr,
+  setOptionArr
+}) => {
   const [clickAdd, setClickAdd] = useState('');
-  const [optionArr, setOptionArr] = useState([]);
+
+
+  
   const input = document.querySelector('.add_menu');
 
-  // console.log(clickAdd);
   const addMenuBtn = () => {
-    if (clickAdd !== '') {
-      axios.post('api/foodHistory', {
-        username: 'alex',
-        foodItem: input.value
-      })
-        .then(function (response) {
-          console.log(response);
-          console.log(response.data);
-          setOptionArr(response.data);
+    //if user is logged in add to their list and make the post
+    if(loggedIn){
+      if (clickAdd !== '') {
+        axios.post('api/foodHistory', {
+          username: userName,
+          foodItem: input.value
         })
-        .then(() => {
-          setClickAdd('');
-          input.value = '';
-          input.focus();
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-      // const copyArr = [...optionArr];
-      // copyArr.push(clickAdd);
-      
-     
+          .then(function (response) {
+            console.log('response is', response);
+            console.log('response.data is', response.data);
+            setOptionArr(response.data);
+          })
+          .then(() => {
+            setClickAdd('');
+            input.value = '';
+            input.focus();
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      }
+    }else{//if the user is not logged in then just add it to the list 
+      //add the option to the array
+      setOptionArr((prev)=>[...prev, clickAdd]);
+      setClickAdd('');
+      input.value = '';
+      input.focus();
     }
   };
 

@@ -10,9 +10,22 @@ const MainContainer = () => {
   const [menu, setMenu] = useState('');
   const [zipcode, setZipcode] = useState(0);
   // const [username, setusername] = useState('');
-  const [stateCredObj, setCredObj ] = useState({username:'',password:'',});
+  const [stateCredObj, setCredObj] = useState({username:'',password:'',});
   const [displayLoginForm, toggleDisplayLoginForm] = useState(false);
   const [displaySignupForm, setDisplaySignupForm] = useState(false);
+  const [optionArr, setOptionArr] = useState([]);
+
+  const getHistory = () => {
+    //make the get request
+    console.log('the user creds are ', stateCredObj);
+    axios.get('/api/foodhistory/', {params:{username:stateCredObj.username}})
+      .then(data => {
+        console.log('the history is', data.payload.history);
+        setOptionArr(data.payload.history);        
+      })
+      .catch(err => console.log('Error in getHistory in mainContainer'));
+    //add it to state
+  };
 
   const toggleSignupForm = ()=>{
     setDisplaySignupForm((prev)=>!prev);
@@ -61,12 +74,18 @@ const MainContainer = () => {
       password: password,
     })
       .then(data => {
+        console.log('username, password pair is,', username, password);
         loginSuccess = data.data.payload.passwordsMatch;
         if (loginSuccess === true) {
           setLoggedIn(()=> true);
+          getHistory();
+          //ON SUCCESSFUL LOG IN ADD A GET REQUEST TO HISTORY
         } else repeatPasswordWarning();
       })
-      .catch(()=>repeatPasswordWarning());
+      .catch(()=>{
+        console.log('username, password pair is,', username, password);
+        repeatPasswordWarning();
+      });
   };
 
   const credPasswordUpdate = (e)=>{
@@ -114,12 +133,19 @@ const MainContainer = () => {
         submitLogIn={submitLogIn}
       />
       <div className='main'>
-        <FoodGenerator menu={menu} />
+        <FoodGenerator 
+          menu={menu}
+          
+        />
         <FoodPicker
           setMenu={setMenu}
           menu={menu}
           setZipcode={setZipcode}
           zipcode={zipcode}
+          loggedIn={loggedIn}
+          userName={stateCredObj.username}
+          optionArr={optionArr}
+          setOptionArr={setOptionArr}
         />
         <Footer />
       </div>

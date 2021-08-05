@@ -45,6 +45,7 @@ userController.getUser = async (req,res,next) =>{
   });
   console.log('result', result);
   res.locals.dbPassword = result.password;
+  res.locals.id = result._id;
   return next();
 };
 

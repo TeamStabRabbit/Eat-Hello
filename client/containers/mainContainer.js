@@ -10,9 +10,10 @@ const MainContainer = () => {
   const [menu, setMenu] = useState('');
   const [zipcode, setZipcode] = useState(0);
   // const [username, setusername] = useState('');
-  const [stateCredObj, setCredObj ] = useState({username:'',password:'',});
+  const [stateCredObj, setCredObj] = useState({username:'',password:'',});
   const [displayLoginForm, toggleDisplayLoginForm] = useState(false);
   const [displaySignupForm, setDisplaySignupForm] = useState(false);
+
 
   const toggleSignupForm = ()=>{
     setDisplaySignupForm((prev)=>!prev);
@@ -114,12 +115,17 @@ const MainContainer = () => {
         submitLogIn={submitLogIn}
       />
       <div className='main'>
-        <FoodGenerator menu={menu} />
+        <FoodGenerator 
+          menu={menu}
+          
+        />
         <FoodPicker
           setMenu={setMenu}
           menu={menu}
           setZipcode={setZipcode}
           zipcode={zipcode}
+          loggedIn={loggedIn}
+          userName={stateCredObj.username}
         />
         <Footer />
       </div>

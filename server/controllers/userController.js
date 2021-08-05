@@ -7,7 +7,7 @@ const userController = {};
 userController.readParams = (req, res, next) => {
   const { username, password } = req.body;
   res.locals = { username, password };
-  console.log('locals in readParams are un,pw', res.locals.username , res.locals.password);
+  // console.log('locals in readParams are un,pw', res.locals.username , res.locals.password);
   return next();
 };
 
@@ -36,17 +36,18 @@ userController.addDataBaseEntry = async (req, res, next) => {
 
 userController.getUser = async (req,res,next) =>{
   const username = res.locals.username;
-  const result = await User.findOne({ username: username }, (err, username) => {
-    if (!username || err) {
-      console.log('user not found');
-      //res.redirect('/api/signup'); 
-      next(err); 
+  const result = await User.findOne({ username: username }, (err, data) => {
+    if (data === null || err) {
+      console.log('user not found'); 
+      return next('err',err); 
+    }else{
+      // console.log('result', data);
+      res.locals.dbPassword = data.password;
+      res.locals.id = data._id;
+      return next();
     }
   });
-  console.log('result', result);
-  res.locals.dbPassword = result.password;
-  res.locals.id = result._id;
-  return next();
+  
 };
 
 userController.getFoodHistory = async (req,res,next) =>{
@@ -92,9 +93,13 @@ userController.pushFoodHistory = async (req, res, next) => {
 userController.passwordCompare = async (req,res,next) =>{
   //res.locals.password = req.query.password
   const { password, dbPassword } = res.locals;
-  const passwordCompare = await bcrypt.compare(password, dbPassword);
-  res.locals.pwResult = passwordCompare;
-  return next();
+  if(password && dbPassword){
+    const passwordCompare = await bcrypt.compare(password, dbPassword);
+    res.locals.pwResult = passwordCompare;
+    return next();
+  }else{
+    return next('fuck');
+  }
 };
 
 

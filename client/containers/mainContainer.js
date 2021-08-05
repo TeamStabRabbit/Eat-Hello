@@ -62,12 +62,16 @@ const MainContainer = () => {
       password: password,
     })
       .then(data => {
+        console.log('username, password pair is,', username, password);
         loginSuccess = data.data.payload.passwordsMatch;
         if (loginSuccess === true) {
           setLoggedIn(()=> true);
         } else repeatPasswordWarning();
       })
-      .catch(()=>repeatPasswordWarning());
+      .catch(()=>{
+        console.log('username, password pair is,', username, password);
+        repeatPasswordWarning();
+      });
   };
 
   const credPasswordUpdate = (e)=>{

@@ -16,7 +16,7 @@ const Footer = () => {
           <br></br>
           <p>Code licensed MIT, docs CC BY 3.0.</p>
           <br></br>
-          <p>Currently v4.2.0.69 'nice'</p>
+          <p>Currently v4.2.0.69 &apos;nice&apos;</p>
         </div>
         {/* FOOTER TWO */}
         <div className="detailsFlex">

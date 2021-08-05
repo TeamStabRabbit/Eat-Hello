@@ -50,7 +50,7 @@ const FoodOptionLists = ({ setMenu, cancelPopup, loggedIn, userName }) => {
       }
     }else{//if the user is not logged in then just add it to the list 
       //add the option to the array
-      setOptionArr((prev)=>[...prev,clickAdd]);
+      setOptionArr((prev)=>[...prev, clickAdd]);
       setClickAdd('');
       input.value = '';
       input.focus();

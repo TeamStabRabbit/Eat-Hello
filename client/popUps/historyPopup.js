@@ -6,7 +6,7 @@ const HistoryPopup = ({ menu, username }) => {
   // fetch request to database to get user history using username
   const foodHistory = async (username) => {
     try {
-      await axios.get('/api/foodHistory', username);
+      await axios.get('/api/foodHistory', username).payload.histor
     } catch (err) {
       console.log('err: ', err);
     }
